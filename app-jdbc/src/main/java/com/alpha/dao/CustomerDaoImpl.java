@@ -24,7 +24,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	private SelectAllCustomers selectAllCustomers;
 	private SelectCustomerById selectCustomerById;
 	private InsertNewCustomer insertNewCustomer;
-	
+	private UpdateCustomer updateCustomer;
+	private DeleteCustomer deleteCustomer;
 	
 	// constructors
 	public CustomerDaoImpl() {
@@ -38,6 +39,8 @@ public class CustomerDaoImpl implements CustomerDao {
 		this.selectAllCustomers = new SelectAllCustomers(dataSource);
 		this.selectCustomerById = new SelectCustomerById(dataSource);
 		this.insertNewCustomer = new InsertNewCustomer(dataSource);
+		this.updateCustomer = new UpdateCustomer(dataSource);
+		this.deleteCustomer = new DeleteCustomer(dataSource);
 	}
 
 	// CRUD methods
@@ -79,15 +82,25 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public void delete(int id) {
 
-		String query = "delete from customer where customer_id=" + id;
-		String query2 = "select * from customer where customer_id =" + id;
+		Map<String, Object> map = new HashMap<>();
+		map.put("customer_id", id);
+		deleteCustomer.updateByNamedParam(map);
+		logger.info("Customer with id " + id + "was deleted successfully");
+		
 	}
 
 	// it updates customer data
 	@Override
 	public void update(Customer customer) {
 
-		String query = "update customer set first_name = ?, last_name = ?, address = ?, email = ? where customer_id = ?";
+		Map<String, Object> paramsMap = new HashMap<>();
+		paramsMap.put("first_name", customer.getFirstName());
+		paramsMap.put("last_name", customer.getLastName());
+		paramsMap.put("address", customer.getAddress());
+		paramsMap.put("email", customer.getEmail());
+		paramsMap.put("customer_id", customer.getId());
+		updateCustomer.updateByNamedParam(paramsMap);
+		logger.info("Existing customer updated with id: " + customer.getId());
 		
 	}
 

@@ -61,6 +61,7 @@ public final class Application {
 		}
 	}
 	
+	// it closes the context and the Buffered reader
 	private void close() {
 		
 		ctx.close();
@@ -158,7 +159,7 @@ public final class Application {
 			System.out.println("Enter new Card code");
 			input = readUserInput();
 			card.setCardCode(input);
-				displayCardMenu();
+			displayCardMenu();
 			break;
 		}
 		}catch(IllegalArgumentException e) {

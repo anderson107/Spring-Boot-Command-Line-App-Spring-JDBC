@@ -18,7 +18,7 @@ public class InsertNewCustomer extends SqlUpdate {
 		super.declareParameter(new SqlParameter("last_name", Types.VARCHAR));
 		super.declareParameter(new SqlParameter("address", Types.VARCHAR));
 		super.declareParameter(new SqlParameter("email", Types.VARCHAR));
-		super.setGeneratedKeysColumnNames(new String("id"));
+		super.setGeneratedKeysColumnNames(new String("customer_id"));
 		super.setReturnGeneratedKeys(true);
 	}
 }
